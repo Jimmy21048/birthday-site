@@ -1,0 +1,23 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+.app {
+    height: 100vh;
+    width:100vw;
+}
+.signup-page {
+    height:100vh;
+    width:100vw;
+    background-image: url('../images/signup-bgc-main.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width:800px) {
+    .signup-page {
+        background-image: url('../images/signup-bgc.png');
+    }
+}
