@@ -1,10 +1,14 @@
 import './App.css';
 import Signup from './Signup';
+import { Routes, Route } from 'react-router-dom';
 
 export default function App() {
     return (
         <div className="app">
-            <Signup />
+            <Routes>
+                <Route path='/' element={<Signup />} />
+            </Routes>
+            
         </div>
     )
 }
