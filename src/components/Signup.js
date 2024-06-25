@@ -7,6 +7,7 @@ export default function Signup() {
     const [feedback, setFeedback] = useState({});
     const [login, setLogin] = useState(false);
     const history = useNavigate();
+    const [loading, setLoading] = useState(null);
 
     function handleChange(e) {
         const name = e.target.name;
@@ -18,21 +19,21 @@ export default function Signup() {
     const  handleSignup = async (e) => {
         e.preventDefault();
 
-            axios.post('http://localhost:3001/signup', inputs, { headers: { 'Content-Type': 'application/json'}})
+            axios.post('http://localhost:3001/signup', inputs, { headers: { 'Content-Type': 'application/json'}}, setLoading(true))
             .then(response => {
+                setLoading(false);
                 if(response.data.error) {
                     console.log(response.data.error);
                 } else {
                     setFeedback(response.data);
+                    if(response.data.signupSuccess) {
+                        setInputs({username: '', password: ''});
+                        setLogin(true);
+                    }
                     setTimeout(() => {
-                        if(response.data.signupSuccess) {
-                            setInputs({username: '', password: ''});
-                            setLogin(true);
-                        }
                         setFeedback({});
-                    }, 10000);
+                    }, 5000);
                 }
-                console.log(response);
                 
             })
     }
@@ -42,19 +43,25 @@ export default function Signup() {
 
         axios.post('http://localhost:3001/login', inputs, {
             headers : {'Content-Type': 'application/json'}
-        }).then(response => {
+        }, setLoading(true)).then(response => {
+            setLoading(false);
             if(response.data.error) {
                 console.log(response.data.error);
                 return;
             }
             setFeedback(response.data);
-            setTimeout(() => {
-                setFeedback({})
+            if(response.data.loginSuccess) {
+                localStorage.setItem("accessToken", response.data.loginSuccess);
                 history('/account');
+            }
+            setTimeout(() => {
+                setFeedback({});
             }, 5000);
         })
     }
-    
+    if(loading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className="signup-page">
             <div className="signup-page-left"></div>
