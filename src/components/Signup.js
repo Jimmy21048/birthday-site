@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
 export default function Signup() {
     const [ inputs, setInputs] = useState({username: '', password: ''});
     const [feedback, setFeedback] = useState({});
     const [login, setLogin] = useState(false);
-
+    const history = useNavigate();
 
     function handleChange(e) {
         const name = e.target.name;
@@ -16,25 +18,41 @@ export default function Signup() {
     const  handleSignup = async (e) => {
         e.preventDefault();
 
-            axios.post('http://localhost:/Bday/signup.php', inputs, { headers: { 'Content-Type': 'application/json'}})
+            axios.post('http://localhost:3001/signup', inputs, { headers: { 'Content-Type': 'application/json'}})
             .then(response => {
                 if(response.data.error) {
                     console.log(response.data.error);
                 } else {
                     setFeedback(response.data);
                     setTimeout(() => {
+                        if(response.data.signupSuccess) {
+                            setInputs({username: '', password: ''});
+                            setLogin(true);
+                        }
                         setFeedback({});
                     }, 10000);
-                    if(response.data.success) {
-                        setLogin(true);
-                    }
                 }
-                setInputs({username: '', password: ''});
+                console.log(response);
+                
             })
     }
 
     const handleLogin = (e) => {
         e.preventDefault();
+
+        axios.post('http://localhost:3001/login', inputs, {
+            headers : {'Content-Type': 'application/json'}
+        }).then(response => {
+            if(response.data.error) {
+                console.log(response.data.error);
+                return;
+            }
+            setFeedback(response.data);
+            setTimeout(() => {
+                setFeedback({})
+                history('/account');
+            }, 5000);
+        })
     }
     
     return (
@@ -45,32 +63,60 @@ export default function Signup() {
                 {
                     login ? 
                     <form className="auth-form" onSubmit={handleLogin}>
-                        <h4 style={{color: "green"}}>{ feedback.success ? feedback.success : '' }</h4>
-                        <label>username
-                            <input type="text" name="username" autoComplete="off" value={inputs.username} onChange={handleChange}/>
-                        </label>
+                        {
+                            feedback.signupSuccess  ? <h4 style={{color: "green"}}>{ feedback.signupSuccess  }</h4> 
+                            : feedback.loginSuccess ? 
+                            <h4 style={{color: "green"}}>{ feedback.loginSuccess }</h4> 
+                            :feedback.loginError ?
+                            <h4 style={{color: "red"}}>{ feedback.loginError }</h4> : ''
+                        }
+                        <input 
+                        type="text" 
+                        name="username" 
+                        placeholder='Username here...' 
+                        autoComplete="off" 
+                        value={inputs.username} 
+                        onChange={handleChange}/>
                          
-                        <label>password
-                            <input type="password" name="password" autoComplete="off" value={inputs.password} onChange={handleChange} />
-                        </label>
-                                           
+                        <input 
+                        type="password" 
+                        name="password" 
+                        placeholder='Password here...' 
+                        autoComplete="off" 
+                        value={inputs.password} 
+                        onChange={handleChange} />
+
+                        <span>Don't have an account? <Link onClick={() => {setLogin(false); setInputs({username: '', password: ''})}}>signup</Link></span>
                     <button>log in</button>
                 </form>
                  :
 
                 <form className="auth-form" onSubmit={handleSignup}>
-                <h4 style={{color: "green"}}>{ feedback.success ? feedback.success : '' }</h4>
-                    <label>username
-                        <input type="text" name="username" autoComplete="off" value={inputs.username} onChange={handleChange}/>
-                        <p>{!feedback.success ? feedback.username : ''}</p>
-                    </label>
+                    {
+                        feedback.signupSuccess ? <h4 style={{color: "green"}}>{ feedback.signupSuccess  }</h4> : ''
+                    }
+                    <input 
+                    type="text" 
+                    required name="username" 
+                    autoComplete="off" 
+                    placeholder='Enter username'
+                    value={inputs.username} 
+                    onChange={handleChange}/>
+                    {
+                        !feedback.success ? <p>{feedback.usernameError}</p> : ''
+                    }
                     
-                    
-                    <label>password
-                        <input type="password" name="password" autoComplete="off" value={inputs.password} onChange={handleChange} />
-                        <p>{ !feedback.sucess ? feedback.password : '' }</p>
-                    </label>
-                                       
+                    <input 
+                    type="password" 
+                    required name="password"
+                    placeholder='Enter password' 
+                    autoComplete="off" 
+                    value={inputs.password} 
+                    onChange={handleChange} />
+                    {
+                        !feedback.sucess ? <p>{feedback.passwordError}</p> : ''
+                    }
+                    <span>Already have an account? <Link onClick={() => {setLogin(true); setInputs({username: '', password: ''})}}>login</Link></span>                
                 <button>sign up</button>
                 </form>                
                 }
