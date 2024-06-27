@@ -85,6 +85,15 @@ input:focus {
     padding: 0 10px;
     align-items:center;
 }
+.account-icon  {
+    border: none;
+}
+.account-page header .fa-solid {
+    font-size:30px;
+    border:none;
+    color: #9c9c9c;
+    background: transparent;
+}
 .account-body {
     height:90vh;
     display:flex;
@@ -135,7 +144,6 @@ input:focus {
     height:200px;
     width:200px;
     object-fit: contain;
-    border-radius: 50%;
 }
 .account-body-right textarea {
     width:90%;
@@ -157,6 +165,35 @@ input:focus {
     height: 8vh;
     justify-content: space-between;
 }
+/* account settings */
+.account-settings {
+    border:1px solid;
+    height:120px;
+    width:200px;
+    position:absolute;
+    right:10px;
+    top:8vh;
+    border-radius:20px;
+    z-index: 2;
+    background-color: #d5eeed;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    border:none;
+}
+.account-option {
+    height:40px;
+    border:none;
+    cursor: pointer;
+}
+.account-option {
+    /* background-color: aqua; */
+    border-bottom: 1px solid gray;
+}
+.account-option:last-of-type {
+    background-color: rgb(255, 85, 85);
+}
+/* account settings */
 @media screen and (max-width:1000px) {
     .signup-page {
         background-image: url('../images/signup-bgc.png');

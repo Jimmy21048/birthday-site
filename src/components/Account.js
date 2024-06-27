@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from 'axios';
+import axios, { toFormData } from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
     const [inputs, setInputs] = useState({
@@ -10,8 +11,11 @@ export default function Account() {
         recipientImage: '',
         bdayMessage: ''
     })
-    // const [selectedFile, setSelectedFile] = useState(null);
+    const [loading, setLoading] = useState(null);
+    const [data, setData] = useState({});
+    const history = useNavigate();
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [viewAccount, setViewAccount] = useState(false);
 
     function handleChange(e) {
         const name = e.target.name;
@@ -23,10 +27,7 @@ export default function Account() {
     function handleFileChange(e) {
         const file = e.target.files[0];
         setInputs({...inputs, recipientImage: file});
-        // setSelectedFile(file);
-
         const reader = new FileReader();
-        console.log(reader);
         reader.onloadend = () => {
             setPreviewUrl(reader.result);
         };
@@ -36,33 +37,77 @@ export default function Account() {
     }
 
 
+    function convertToFormData(data) {
+        const formData = new FormData();
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                formData.append(key, data[key]);
+            }
+        }
+        return formData;
+    }
+
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        axios.post('https://localhost/Bday/account.php', { headers: { 'Content-Type': 'application/json'}}, inputs)
+        // const formData = new FormData();
+        const formData = convertToFormData(inputs);
+        axios.post('http://localhost:3001/account', formData, { 
+            headers: { 
+                // 'Content-Type': 'multipart/form-data',
+                accessToken: localStorage.getItem("accessToken")
+            }
+        })
         .then(response => {
             console.log(response);
         })
     }
 
+
     useEffect(() => {
-        axios.get('http://localhost/Bday/account.php', {
-            headers : {'Content-Type': 'application/json'}
-        })
+        axios.get('http://localhost:3001/account', {
+            headers : {
+                'Content-Type': 'application/json',
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }, setLoading(true))
         .then(response => {
-            console.log(response);
+            setLoading(false);
+
+            if(response.data.error ||
+            response.data.userError ||
+            response.data.validationError ||
+            response.data.tokenError) {
+                history('/');
+            }
+            setData(response.data);
         })
+        
     }, []);
 
+    function logout() {
+        localStorage.removeItem("accessToken");
+        history('/');
+    }
     return (
         <div className="account-page">
+            {
+                viewAccount ? 
+                <>
+                    <div className="account-settings">
+                        <button className="account-option">{ data.username }</button>
+                        <button className="account-option">someonexyz@gmail.com</button>
+                        <button className="account-option" onClick={logout}>Logout</button>
+                    </div>
+                </> : ''
+            }
             <header>
-                <h3>Hello Username</h3>
-                <div>My Account</div>
+                <h3>Hello {data.username}</h3>
+                
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user"></i></button>
             </header>
             <div className="account-body">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="account-body-left">
                         <label>Enter recipient's name
                             <input type="text" name="recipientName" value={inputs.recipientName} onChange={handleChange}/>

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Signup() {
     const [ inputs, setInputs] = useState({username: '', password: ''});
     const [feedback, setFeedback] = useState({});
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(true);
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
 
@@ -100,7 +100,8 @@ export default function Signup() {
 
                 <form className="auth-form" onSubmit={handleSignup}>
                     {
-                        feedback.signupSuccess ? <h4 style={{color: "green"}}>{ feedback.signupSuccess  }</h4> : ''
+                        feedback.signupSuccess ? <h4 style={{color: "green"}}>{ feedback.signupSuccess  }</h4> : 
+                        feedback.userExists ? <h4 style={{color: "red"}}>{ feedback.userExists  }</h4> : ''
                     }
                     <input 
                     type="text" 
@@ -110,7 +111,7 @@ export default function Signup() {
                     value={inputs.username} 
                     onChange={handleChange}/>
                     {
-                        !feedback.success ? <p>{feedback.usernameError}</p> : ''
+                        !feedback.usernameError ? <p>{feedback.usernameError}</p> : ''
                     }
                     
                     <input 
@@ -121,7 +122,7 @@ export default function Signup() {
                     value={inputs.password} 
                     onChange={handleChange} />
                     {
-                        !feedback.sucess ? <p>{feedback.passwordError}</p> : ''
+                        !feedback.passwordError ? <p>{feedback.passwordError}</p> : ''
                     }
                     <span>Already have an account? <Link onClick={() => {setLogin(true); setInputs({username: '', password: ''})}}>login</Link></span>                
                 <button>sign up</button>
