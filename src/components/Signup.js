@@ -19,7 +19,7 @@ export default function Signup() {
     const  handleSignup = async (e) => {
         e.preventDefault();
 
-            axios.post('http://localhost:3001/signup', inputs, { headers: { 'Content-Type': 'application/json'}}, setLoading(true))
+            axios.post('https://birthday-site-server.onrender.com/signup', inputs, { headers: { 'Content-Type': 'application/json'}}, setLoading(true))
             .then(response => {
                 setLoading(false);
                 if(response.data.error) {
@@ -41,7 +41,7 @@ export default function Signup() {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:3001/login', inputs, {
+        axios.post('https://birthday-site-server.onrender.com/login', inputs, {
             headers : {'Content-Type': 'application/json'}
         }, setLoading(true)).then(response => {
             setLoading(false);

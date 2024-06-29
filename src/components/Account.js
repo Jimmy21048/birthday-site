@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axios, { toFormData } from 'axios';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 export default function Account() {
@@ -52,7 +52,7 @@ export default function Account() {
         e.preventDefault();
         // const formData = new FormData();
         const formData = convertToFormData(inputs);
-        axios.post('http://localhost:3001/account', formData, { 
+        axios.post('https://birthday-site-server.onrender.com/account', formData, { 
             headers: { 
                 // 'Content-Type': 'multipart/form-data',
                 accessToken: localStorage.getItem("accessToken")
@@ -65,7 +65,7 @@ export default function Account() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3001/account', {
+        axios.get('https://birthday-site-server.onrender.com/account', {
             headers : {
                 'Content-Type': 'application/json',
                 accessToken: localStorage.getItem("accessToken")
