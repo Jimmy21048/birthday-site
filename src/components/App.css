@@ -38,13 +38,13 @@
     flex-direction: column;
     gap:10px;
 }
-.auth-form label {
+/* .auth-form label {
     height:max-content;
     display:flex;
     flex-direction:column;
     gap:4px;
     height:12vh;
-}
+} */
 .auth-form input {
     height:5vh;
     width:90%;
@@ -70,6 +70,19 @@ input:focus {
 .auth-form span a {
     text-decoration: none;
     color:green;
+}
+
+.auth-form label {
+    display: flex;
+    height:4vh;
+    align-items: center;
+    gap: 5px;
+    width:90%;
+    padding-left:2px;
+    color:rgb(83, 81, 81);
+}
+.auth-form #pwd-check {
+    width:18px;
 }
 
 /* account page */
@@ -214,9 +227,6 @@ input:focus {
         align-items: center;
         height: 45vh;
     }
-    .auth-form label {
-        width:100%;
-    }
     .auth-form input {
         height:5vh;
     }
@@ -224,7 +234,9 @@ input:focus {
         font-size:0.8rem;
         height:3vh;
     }
-
+    .auth-form label {
+        width:90%;
+    }
     /* account page */
     .account-page {
         height:140vh;

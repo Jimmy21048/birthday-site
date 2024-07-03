@@ -8,6 +8,7 @@ export default function Signup() {
     const [login, setLogin] = useState(true);
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
 
     function handleChange(e) {
         const name = e.target.name;
@@ -20,6 +21,7 @@ export default function Signup() {
         e.preventDefault();
 
             axios.post('https://birthday-site-server.onrender.com/signup', inputs, { headers: { 'Content-Type': 'application/json'}}, setLoading(true))
+            // axios.post('http://localhost:3002/signup', inputs, { headers: { 'Content-Type': 'application/json'}}, setLoading(true))
             .then(response => {
                 setLoading(false);
                 if(response.data.error) {
@@ -30,11 +32,10 @@ export default function Signup() {
                         setInputs({username: '', password: ''});
                         setLogin(true);
                     }
-                    setTimeout(() => {
-                        setFeedback({});
-                    }, 5000);
                 }
-                
+                setTimeout(() => {
+                    setFeedback({});
+                }, 5000);
             })
     }
 
@@ -42,6 +43,7 @@ export default function Signup() {
         e.preventDefault();
 
         axios.post('https://birthday-site-server.onrender.com/login', inputs, {
+        // axios.post('http://localhost:3002/login', inputs, {
             headers : {'Content-Type': 'application/json'}
         }, setLoading(true)).then(response => {
             setLoading(false);
@@ -59,6 +61,19 @@ export default function Signup() {
             }, 5000);
         })
     }
+
+    function togglePassword() {
+        let pwd = document.getElementById('password-input');
+        setShowPassword(!showPassword);
+        if(!showPassword) {
+            // setShowPassword(true);
+            pwd.type = 'text';
+        } else {
+            // setShowPassword(false);
+            pwd.type = 'password';
+        }
+    }
+
     if(loading) {
         return <div>Loading...</div>
     }
@@ -86,6 +101,7 @@ export default function Signup() {
                         onChange={handleChange}/>
                          
                         <input 
+                        id='password-input'
                         type="password" 
                         name="password" 
                         placeholder='Password here...' 
@@ -93,7 +109,12 @@ export default function Signup() {
                         value={inputs.password} 
                         onChange={handleChange} />
 
-                        <span>Don't have an account? <Link onClick={() => {setLogin(false); setInputs({username: '', password: ''})}}>signup</Link></span>
+                        <label>
+                            <input type='checkbox' id='pwd-check' onChange={togglePassword} />
+                            show password
+                        </label>
+
+                        <span>Don't have an account? <Link onClick={() => {setLogin(false); setInputs({username: '', password: ''}); setShowPassword(false)}}>signup</Link></span>
                     <button>log in</button>
                 </form>
                  :
@@ -101,7 +122,9 @@ export default function Signup() {
                 <form className="auth-form" onSubmit={handleSignup}>
                     {
                         feedback.signupSuccess ? <h4 style={{color: "green"}}>{ feedback.signupSuccess  }</h4> : 
-                        feedback.userExists ? <h4 style={{color: "red"}}>{ feedback.userExists  }</h4> : ''
+                        feedback.userExists ? <h4 style={{color: "red"}}>{ feedback.userExists  }</h4> : 
+                        feedback.usernameError ? <p>{feedback.usernameError}</p> : 
+                        feedback.passwordError ? <p>{feedback.passwordError}</p> : ''
                     }
                     <input 
                     type="text" 
@@ -110,21 +133,22 @@ export default function Signup() {
                     placeholder='Enter username'
                     value={inputs.username} 
                     onChange={handleChange}/>
-                    {
-                        !feedback.usernameError ? <p>{feedback.usernameError}</p> : ''
-                    }
                     
                     <input 
+                    id='password-input'
                     type="password" 
                     required name="password"
                     placeholder='Enter password' 
                     autoComplete="off" 
                     value={inputs.password} 
                     onChange={handleChange} />
-                    {
-                        !feedback.passwordError ? <p>{feedback.passwordError}</p> : ''
-                    }
-                    <span>Already have an account? <Link onClick={() => {setLogin(true); setInputs({username: '', password: ''})}}>login</Link></span>                
+
+                    <label>
+                        <input type='checkbox' id='pwd-check' onChange={togglePassword} />
+                        show password
+                    </label>
+
+                    <span>Already have an account? <Link onClick={() => {setLogin(true); setInputs({username: '', password: ''}); setShowPassword(false)}}>login</Link></span>                
                 <button>sign up</button>
                 </form>                
                 }

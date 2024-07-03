@@ -53,6 +53,7 @@ export default function Account() {
         // const formData = new FormData();
         const formData = convertToFormData(inputs);
         axios.post('https://birthday-site-server.onrender.com/account', formData, { 
+        // axios.post('http://localhost:3002/account', formData, { 
             headers: { 
                 // 'Content-Type': 'multipart/form-data',
                 accessToken: localStorage.getItem("accessToken")
@@ -66,6 +67,7 @@ export default function Account() {
 
     useEffect(() => {
         axios.get('https://birthday-site-server.onrender.com/account', {
+        // axios.get('http://localhost:3002/account', {
             headers : {
                 'Content-Type': 'application/json',
                 accessToken: localStorage.getItem("accessToken")
