@@ -68,9 +68,9 @@ export default function Signup() {
         //setShowPassword(!showPassword);
 
         if(checkBox.checked == true) {
-            setShowPassword(true);
-        } else {
             setShowPassword(false);
+        } else {
+            setShowPassword(true);
         } 
         if(!showPassword) {
             pwd.type = 'password';
