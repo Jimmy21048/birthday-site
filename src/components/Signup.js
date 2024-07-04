@@ -64,13 +64,18 @@ export default function Signup() {
 
     function togglePassword() {
         let pwd = document.getElementById('password-input');
-        setShowPassword(!showPassword);
-        if(!showPassword) {
-            // setShowPassword(true);
-            pwd.type = 'text';
+        let checkBox = document.getElementById('pwd-check');
+        //setShowPassword(!showPassword);
+
+        if(checkBox.checked == true) {
+            setShowPassword(true);
         } else {
-            // setShowPassword(false);
+            setShowPassword(false);
+        } 
+        if(!showPassword) {
             pwd.type = 'password';
+        } else {
+            pwd.type = 'text';
         }
     }
 
