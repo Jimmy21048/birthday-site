@@ -68,9 +68,9 @@ export default function Signup() {
         //setShowPassword(!showPassword);
         console.log(pwd.type, checkBox.checked)
         if(checkBox.checked == true) {
-            setShowPassword(false);
-        } else {
             setShowPassword(true);
+        } else {
+            setShowPassword(false);
         } 
         if(!showPassword) {
             pwd.type = 'password';
