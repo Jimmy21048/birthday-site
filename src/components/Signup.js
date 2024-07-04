@@ -66,7 +66,7 @@ export default function Signup() {
         let pwd = document.getElementById('password-input');
         let checkBox = document.getElementById('pwd-check');
         //setShowPassword(!showPassword);
-
+        console.log(pwd.type, checkBox.checked)
         if(checkBox.checked == true) {
             setShowPassword(false);
         } else {
