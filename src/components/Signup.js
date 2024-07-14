@@ -66,10 +66,8 @@ export default function Signup() {
         let pwd = document.getElementById('password-input');
         setShowPassword(!showPassword);
         if(!showPassword) {
-            // setShowPassword(true);
             pwd.type = 'text';
         } else {
-            // setShowPassword(false);
             pwd.type = 'password';
         }
     }

@@ -6,8 +6,8 @@ export default function Account() {
     const [inputs, setInputs] = useState({
         recipientName: '',
         birthDate: '',
+        eventType: '',
         openDate: '',
-        enableGift: '',
         recipientImage: '',
         bdayMessage: ''
     })
@@ -50,17 +50,19 @@ export default function Account() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        // const formData = new FormData();
+        console.log(inputs);
         const formData = convertToFormData(inputs);
         axios.post('https://birthday-site-server.onrender.com/account', formData, { 
         // axios.post('http://localhost:3002/account', formData, { 
             headers: { 
-                // 'Content-Type': 'multipart/form-data',
                 accessToken: localStorage.getItem("accessToken")
             }
-        })
+        }, setLoading(true))
         .then(response => {
-            console.log(response);
+            setLoading(false)
+            if(response.data.success) {
+                history(`/sent/${response.data.success}`);
+            }
         })
     }
 
@@ -91,6 +93,10 @@ export default function Account() {
         localStorage.removeItem("accessToken");
         history('/');
     }
+
+    if(loading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className="account-page">
             {
@@ -112,33 +118,35 @@ export default function Account() {
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="account-body-left">
                         <label>Enter recipient's name
-                            <input type="text" name="recipientName" value={inputs.recipientName} onChange={handleChange}/>
+                            <input type="text" autoComplete="off" name="recipientName" value={inputs.recipientName} onChange={handleChange}/>
                         </label>
-                        <label>Recipient's date of Birth
-                            <input type="date" name="birthDate" value={inputs.birthDate} onChange={handleChange} />
-                        </label>
-                        <label>Date to open 
-                            <select name="openDate" onChange={handleChange} >
-                                <option value=''>None selected </option>
-                                <option value={inputs.birthDate}>Birthday date</option>
-                                <option value={1} >Any time</option>
+                        <label>Event Type
+                            <select name="eventType" onChange={handleChange}>
+                                <option value=''>None Selected</option>
+                                <option value='Birth Day'>Birth Day</option>
+                                <option value='Fathers Day'>Fathers Day</option>
+                                <option value='Mothers Day'>Mothers Day</option>
                             </select>
                         </label>
-                        <label>Enable gifts
-                            <div id="gift-div">
-                            <input className="input-radio" type="radio" name="enableGift" value='yes' onChange={handleChange} />yes
-                            <input className="input-radio" type="radio" name="enableGift" value='no' onChange={handleChange} />no
-                            </div>
+                        {
+                            inputs.eventType === 'Birth Day' ? 
+                            <label>Recipient's date of Birth
+                                <input type="date" name="birthDate" value={inputs.birthDate} onChange={handleChange} />
+                            </label> : ''
+                        }
+                        <label>When to open 
+                            <input type="date" name="openDate" onChange={handleChange} />
                         </label>
                     </div>
                     <div className="account-body-right">
+                    <textarea placeholder="Type or paste your birthday message here..." cols={30} rows={10} name="bdayMessage" onChange={handleChange} />
                         <label>Upload recipient's image
                             <input type="file" name="recipientImage" onChange={handleFileChange} />
                         </label>
                         {
                             previewUrl && <img src={previewUrl} alt="recipient-pic" />
                         }
-                        <textarea placeholder="Type or paste your birthday message here..." cols={30} rows={10} name="bdayMessage" onChange={handleChange} />
+                        
                         <button>Submit</button>
                     </div>
                 </form>

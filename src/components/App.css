@@ -207,6 +207,43 @@ input:focus {
     background-color: rgb(255, 85, 85);
 }
 /* account settings */
+/* sent */
+.sent {
+    height: 100vh;
+    width:100vw;
+    background-color:#eef7f8;
+}
+.sent header {
+    height:10vh;
+}
+.send-link {
+    height:20vh;
+    display:flex;
+    gap:20px;
+    align-items: center;
+    padding-left:10px;
+}
+.send-link p {
+    font-size:1.2rem;
+}
+.send-link a {
+    text-decoration: none;
+    color: black;
+    background-color: #d1d1d1;
+    padding:5px 10px;
+    border-radius:10px;
+}
+.send-link a:hover {
+    background-color: #9b9b9b;
+}
+.send-link button {
+    padding:5px 10px;
+    border-radius: 10px;
+    background-color: #51dd6f;
+    cursor: pointer;
+    border:none;
+}
+/* sent */
 @media screen and (max-width:1000px) {
     .signup-page {
         background-image: url('../images/signup-bgc.png');
@@ -275,4 +312,14 @@ input:focus {
         height:70vh;
         margin-bottom: 5vh;
     }
+    /* sent */
+    .sent {
+        overflow: hidden;
+    }
+    .send-link {
+        height:40vh;
+        flex-direction: column;
+        align-items:start;
+    }
+    /* sent */
 }
