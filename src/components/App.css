@@ -215,6 +215,13 @@ input:focus {
 }
 .sent header {
     height:10vh;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+.sent header a {
+    text-decoration: none;
+    color: black;
 }
 .send-link {
     height:20vh;
@@ -242,6 +249,24 @@ input:focus {
     background-color: #51dd6f;
     cursor: pointer;
     border:none;
+}
+.my-events {
+    height:max-content;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 500px;
+    max-width: 97vw;
+    padding: 5px;
+}
+.my-events div {
+    height: 6vh;
+    border:1px solid;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 8px;
+    padding-left: 5px;
 }
 /* sent */
 @media screen and (max-width:1000px) {

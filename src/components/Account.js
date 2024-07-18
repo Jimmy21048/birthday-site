@@ -103,7 +103,7 @@ export default function Account() {
                 viewAccount ? 
                 <>
                     <div className="account-settings">
-                        <button className="account-option">{ data.username }</button>
+                        <button className="account-option" onClick={ history('/sent')}>My Events</button>
                         <button className="account-option">someonexyz@gmail.com</button>
                         <button className="account-option" onClick={logout}>Logout</button>
                     </div>
@@ -112,7 +112,7 @@ export default function Account() {
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user"></i></button>
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} >i<i class="fa-solid fa-user"></i></button>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
