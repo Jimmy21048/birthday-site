@@ -36,7 +36,6 @@ export default function Account() {
         }
     }
 
-
     function convertToFormData(data) {
         const formData = new FormData();
         for (const key in data) {
@@ -112,7 +111,7 @@ export default function Account() {
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} >i<i class="fa-solid fa-user"></i></button>
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user">i</i></button>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">

@@ -51,7 +51,7 @@ export default function Sent() {
     return (
         <div className="sent">
             <header>
-                <Link to="/account">Back</Link>
+                <Link to="/account"><i className="fa-solid fa-circle-left"></i></Link>
             </header>
             <div className='sent-body'>
                 {
@@ -70,9 +70,10 @@ export default function Sent() {
                     {
                         events.map(event => {
                             return (
-                                <div key={events.r_id}>
+                                <a href={`https://events-receiver.vercel.app/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}>
+                                {/* <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}> */}
                                     <p>{ event.r_name }</p> <p>{ event.event_type }</p> <p>{ event.open_date }</p> <button onClick={() => handleDelete(event.r_id)}>Delete</button>
-                                </div>
+                                </a>
                             )
                         })
                     }

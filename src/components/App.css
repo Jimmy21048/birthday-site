@@ -219,6 +219,9 @@ input:focus {
     align-items: center;
     padding-left: 5px;
 }
+.sent header .fa-solid {
+    font-size: 30px;
+}
 .sent header a {
     text-decoration: none;
     color: black;
@@ -259,7 +262,7 @@ input:focus {
     max-width: 97vw;
     padding: 5px;
 }
-.my-events div {
+.my-events a {
     height: 6vh;
     border:1px solid;
     display: flex;
@@ -267,6 +270,8 @@ input:focus {
     align-items: center;
     border-radius: 8px;
     padding-left: 5px;
+    text-decoration: none;
+    color: black;
 }
 /* sent */
 @media screen and (max-width:1000px) {
