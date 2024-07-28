@@ -94,7 +94,7 @@ export default function Account() {
     }
 
     if(loading) {
-        return <div>Loading...</div>
+        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Loading...</h3></div>
     }
     return (
         <div className="account-page">
@@ -111,7 +111,7 @@ export default function Account() {
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user">i</i></button>
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user"></i></button>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -125,6 +125,10 @@ export default function Account() {
                                 <option value='Birth Day'>Birth Day</option>
                                 <option value='Fathers Day'>Fathers Day</option>
                                 <option value='Mothers Day'>Mothers Day</option>
+                                <option value='GirlFriends Day'>GirlFriends Day</option>
+                                <option value='BoyFriends Day'>BoyFriends Day</option>
+                                <option value='Womens Day'>Womens Day</option>
+                                <option value='Mens Day'>Mens Day</option>
                             </select>
                         </label>
                         {

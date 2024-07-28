@@ -73,7 +73,7 @@ export default function Signup() {
     }
 
     if(loading) {
-        return <div>Loading...</div>
+        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Loading...</h3></div>
     }
     return (
         <div className="signup-page">

@@ -274,6 +274,25 @@ input:focus {
     color: black;
 }
 /* sent */
+/* loading */
+.loading {
+    background-color: #e4e0e0;
+    height: 100vh;
+    width:100vw;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.loading .fa-solid {
+    font-size: 3.5rem;
+    color: rgba(76, 230, 204, 0.938);
+}
+.loading h3 {
+    font-size: 1.5rem
+}
+
 @media screen and (max-width:1000px) {
     .signup-page {
         background-image: url('../images/signup-bgc.png');
