@@ -217,7 +217,9 @@ input:focus {
     height:10vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: 5px;
+    padding:0 10px;
 }
 .sent header .fa-solid {
     font-size: 30px;
@@ -225,6 +227,10 @@ input:focus {
 .sent header a {
     text-decoration: none;
     color: black;
+}
+.sent header button {
+    width:50px;
+    height:30px;
 }
 .send-link {
     height:20vh;
@@ -291,6 +297,51 @@ input:focus {
 }
 .loading h3 {
     font-size: 1.5rem
+}
+/* sms */
+.sms {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top: 20vh;
+    width: 500px;
+    max-width: 95vw;
+    z-index: 999;
+    background-color: rgba(184, 241, 255, 0.938);
+    height: 300px;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sms header {
+    height: 5vh;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sms header button {
+    border: 0.5px solid;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.sms-values {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height:inherit;
+    overflow-y: scroll;
+}
+.sms-value {
+    border-left: 4px solid;
+    padding-left: 5px;
+}
+.sms-value h3 {
+    color: rgb(15, 230, 15);
 }
 
 @media screen and (max-width:1000px) {

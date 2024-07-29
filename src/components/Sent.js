@@ -8,6 +8,7 @@ export default function Sent() {
     const [events, setEvents] = useState([]);
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
+    const [sms, setSms] = useState(false);
 
     useEffect(() => {
         axios.get('https://birthday-site-server.onrender.com/sent/my', {
@@ -22,7 +23,6 @@ export default function Sent() {
                 response.data.tokenError) {
                     history('/');
             }
-            console.log(response.data);
             setEvents(response.data);
         })
     }, [setLoading, loading]);
@@ -50,8 +50,31 @@ export default function Sent() {
     }
     return (
         <div className="sent">
+            {
+                sms ?
+                <div className='sms'>
+                    <header>
+                        <h3>Responses</h3>
+                        <button onClick={() => setSms(false)}>X</button>
+                    </header> 
+                    <hr/>
+                    <div className='sms-values'>
+                        {
+                            events.map(event => {
+                                return <div className='sms-value'>
+                                    <h3>{ event.r_name } </h3>
+                                    <h4>{ event.event_type }</h4>
+                                    <h5>{ event.open_date }</h5>
+                                    <p>{ event.r_response ? event.r_response : '...' }</p>
+                                </div>
+                            })
+                        }
+                    </div>                   
+                </div> : ''
+            }
             <header>
                 <Link to="/account"><i className="fa-solid fa-circle-left"></i></Link>
+                <button onClick={() => setSms(true)} >SMS</button> 
             </header>
             <div className='sent-body'>
                 {
@@ -71,8 +94,8 @@ export default function Sent() {
                         events.map(event => {
                             return (
                                 <a href={`https://events-receiver.vercel.app/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}>
-                                {/* // <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}> */}
-                                    <p>{ event.r_name }</p> <p>{ event.event_type }</p> <p>{ event.open_date }</p> <button onClick={() => handleDelete(event.r_id)}>Delete</button>
+                                {/* <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}> */}
+                                    <p>{ event.r_name }</p> <p>{ event.event_type }</p> <button onClick={() => handleDelete(event.r_id)}>Delete</button>
                                 </a>
                             )
                         })
