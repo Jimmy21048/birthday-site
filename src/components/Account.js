@@ -94,7 +94,7 @@ export default function Account() {
     }
 
     if(loading) {
-        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Loading...</h3></div>
+        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
     }
     return (
         <div className="account-page">
@@ -111,7 +111,7 @@ export default function Account() {
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user"></i></button>
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user">c</i></button>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">

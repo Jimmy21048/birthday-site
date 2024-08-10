@@ -9,6 +9,7 @@ export default function Sent() {
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
     const [sms, setSms] = useState(false);
+    const [copied, setCopied] = useState('');
 
     useEffect(() => {
         axios.get('https://birthday-site-server.onrender.com/sent/my', {
@@ -24,6 +25,7 @@ export default function Sent() {
                     history('/');
             }
             setEvents(response.data);
+            console.log(response.data)
         })
     }, [setLoading, loading]);
 
@@ -42,10 +44,14 @@ export default function Sent() {
     function handleCopyText() {
         const data = document.getElementById('my-link');
         navigator.clipboard.writeText(data.href);
+        setCopied('Link copied')
+        setTimeout(()=> {
+            setCopied('');
+        }, 4000);
     }
     if(loading) {
         return (
-            <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Loading...</h3></div>
+            <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
         )
     }
     return (
@@ -74,7 +80,7 @@ export default function Sent() {
             }
             <header>
                 <Link to="/account"><i className="fa-solid fa-circle-left"></i></Link>
-                <button onClick={() => setSms(true)} >SMS</button> 
+                <button onClick={() => setSms(true)} ><i class="fa-regular fa-envelope"></i></button> 
             </header>
             <div className='sent-body'>
                 {
@@ -85,6 +91,7 @@ export default function Sent() {
                         <a href={`https://events-receiver.vercel.app/${id}`} rel='noreferrer' target='_blank' id='my-link' >https://events-receiver.vercel.app/{id}</a>
                         {/* <a href={`http://localhost:3001/${id}`} rel='noreferrer' target='_blank' id='my-link'>http://localhost:3001/{id}</a> */}
                         <button onClick={handleCopyText}>Copy Link</button>
+                        <i>{ copied }</i>
                         </div>
                     </> : ''
                 }
@@ -93,10 +100,10 @@ export default function Sent() {
                     {
                         events.map(event => {
                             return (
-                                <a href={`https://events-receiver.vercel.app/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}>
-                                {/* <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer' key={events.r_id}> */}
-                                    <p>{ event.r_name }</p> <p>{ event.event_type }</p> <button onClick={() => handleDelete(event.r_id)}>Delete</button>
-                                </a>
+                                <div key={events.r_id}>
+                                    <p>{ event.r_name }</p> <a href={`https://events-receiver.vercel.app/${event.recipientId}`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button>
+                                    {/* <p>{ event.r_name }</p> <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button> */}
+                                </div>
                             )
                         })
                     }

@@ -73,11 +73,17 @@ export default function Signup() {
     }
 
     if(loading) {
-        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Loading...</h3></div>
+        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a minute... loading page</h3></div>
     }
     return (
         <div className="signup-page">
-            <div className="signup-page-left"></div>
+            <div className="signup-page-left">
+                <lord-icon
+                    src="https://cdn.lordicon.com/fkmafinl.json"
+                    trigger="hover"
+                    >
+                </lord-icon>
+            </div>
             <div className="signup-page-right">
                 <h3>{ login ? 'LOG IN' : 'SIGN UP' }</h3>
                 {
