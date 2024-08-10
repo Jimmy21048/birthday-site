@@ -111,7 +111,7 @@ export default function Account() {
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user">c</i></button>
+                <button className="account-icon" onClick={() => setViewAccount(account => {return !account})} ><i class="fa-solid fa-user"></i></button>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
