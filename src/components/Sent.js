@@ -61,7 +61,7 @@ export default function Sent() {
                 <div className='sms'>
                     <header>
                         <h3>Responses</h3>
-                        <button onClick={() => setSms(false)}>X</button>
+                        <button onClick={() => setSms(false)}></button>
                     </header> 
                     <hr/>
                     <div className='sms-values'>
@@ -101,8 +101,8 @@ export default function Sent() {
                         events.map(event => {
                             return (
                                 <div key={events.r_id}>
-                                    <p>{ event.r_name }</p> <a href={`https://events-receiver.vercel.app/${event.recipientId}`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button>
-                                    {/* <p>{ event.r_name }</p> <a href={`http://localhost:3001/${event.recipientId}`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button> */}
+                                    <p>{ event.r_name }</p> <a href={`https://events-receiver.vercel.app/${event.recipientId}a`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button>
+                                    {/* <p>{ event.r_name }</p> <a href={`http://localhost:3001/${event.recipientId}a`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye">x</i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash">x</i></button> */}
                                 </div>
                             )
                         })

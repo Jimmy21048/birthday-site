@@ -142,7 +142,7 @@ export default function Account() {
                         </label>
                     </div>
                     <div className="account-body-right">
-                    <textarea placeholder="Type or paste your birthday message here..." cols={30} rows={10} name="bdayMessage" onChange={handleChange} />
+                    <textarea placeholder="Type or paste your message here..." cols={30} rows={10} name="bdayMessage" onChange={handleChange} />
                         <label>Upload recipient's image
                             <input type="file" name="recipientImage" onChange={handleFileChange} />
                         </label>
