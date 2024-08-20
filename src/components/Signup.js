@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ export default function Signup() {
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
 
     function handleChange(e) {
         const name = e.target.name;
@@ -72,17 +73,32 @@ export default function Signup() {
         }
     }
 
+    useEffect(() => {
+        const inter = setInterval(() => {
+            if(currentImage < 4) {
+                setCurrentImage(currentImage => currentImage + 1);
+            } else {
+                setCurrentImage(0);
+            }
+        }, 20000)
+        return () => clearInterval(inter);
+    }, [currentImage])
+
     if(loading) {
         return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a minute... loading page</h3></div>
     }
     return (
         <div className="signup-page">
             <div className="signup-page-left">
-                <lord-icon
-                    src="https://cdn.lordicon.com/fkmafinl.json"
-                    trigger="hover"
-                    >
-                </lord-icon>
+                <h1>MY EVENTS</h1>
+                <img src={`../images/disp7.png`} alt='display' />
+                <h1>
+                    <p>BIRTHDAYS</p>
+                    <p>FATHERS DAY</p>
+                    <p>MOTHERS DAY</p>
+                    <p>ALL YOUR EVENTS</p>
+                    <p>BIRTHDAYS</p>
+                </h1>
             </div>
             <div className="signup-page-right">
                 <h3>{ login ? 'LOG IN' : 'SIGN UP' }</h3>

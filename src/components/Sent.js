@@ -61,7 +61,7 @@ export default function Sent() {
                 <div className='sms'>
                     <header>
                         <h3>Responses</h3>
-                        <button onClick={() => setSms(false)}></button>
+                        <button onClick={() => setSms(false)}>X</button>
                     </header> 
                     <hr/>
                     <div className='sms-values'>
