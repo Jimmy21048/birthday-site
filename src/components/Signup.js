@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,10 @@ export default function Signup() {
     const [login, setLogin] = useState(true);
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
-    const [showPassword, setShowPassword] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
+
+    let pwd = document.getElementById('password-input');
+    let pwdCheck = document.getElementById("pwd-check");
 
     function handleChange(e) {
         const name = e.target.name;
@@ -41,7 +43,6 @@ export default function Signup() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(inputs);
         axios.post('https://birthday-site-server.onrender.com/login', inputs, {
         // axios.post('http://localhost:3002/login', inputs, {
             headers : {'Content-Type': 'application/json'}
@@ -64,13 +65,18 @@ export default function Signup() {
     }
 
     function togglePassword() {
-        let pwd = document.getElementById('password-input');
-        setShowPassword(!showPassword);
-        if(!showPassword) {
+        if(pwdCheck.checked === true) {
             pwd.type = 'text';
         } else {
             pwd.type = 'password';
         }
+    }
+
+    function handleSignin() {
+        setLogin(!login); 
+        setInputs({username: '', password: ''}); 
+        pwdCheck.checked = false;
+        pwd.type = "password";
     }
 
     useEffect(() => {
@@ -134,7 +140,7 @@ export default function Signup() {
                             show password
                         </label>
 
-                        <span>Don't have an account? <Link onClick={() => {setLogin(false); setInputs({username: '', password: ''}); setShowPassword(false)}}>signup</Link></span>
+                        <span>Don't have an account? <Link onClick={handleSignin}>signup</Link></span>
                     <button>log in</button>
                 </form>
                  :
@@ -168,7 +174,7 @@ export default function Signup() {
                         show password
                     </label>
 
-                    <span>Already have an account? <Link onClick={() => {setLogin(true); setInputs({username: '', password: ''}); setShowPassword(false)}}>login</Link></span>                
+                    <span>Already have an account? <Link onClick={handleSignin}>login</Link></span>                
                 <button>sign up</button>
                 </form>                
                 }
