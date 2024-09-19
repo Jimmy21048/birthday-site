@@ -116,13 +116,6 @@
     flex-direction: column;
     gap:10px;
 }
-/* .auth-form label {
-    height:max-content;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    height:12vh;
-} */
 .auth-form input {
     height:5vh;
     width:90%;
@@ -227,12 +220,31 @@ input:focus {
     width:450px;
     justify-content: space-between;
 }
-.account-body-left input, .account-body-left select {
+.input-select {
+    display: flex;
+    gap: 0;
+}
+.account-body-left select {
+    width:40px;
+    height:5vh;
+    border:1px solid #E3E3E3;
+    padding: 0 10px;
+    margin: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.account-body-left input {
     width:250px;
     height:5vh;
     border-radius: 10px;
     border:1px solid #E3E3E3;
     padding-left:10px;
+}
+.input-select input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+    width: 210px;
 }
 .account-body-left .input-radio {
     width:40px;

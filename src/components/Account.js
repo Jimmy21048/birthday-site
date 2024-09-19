@@ -15,12 +15,13 @@ export default function Account() {
     const [data, setData] = useState({});
     const history = useNavigate();
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [customEvent, setCustomEvent] = useState('');
 
     function handleChange(e) {
         const name = e.target.name;
         const value = e.target.value;
 
-        setInputs({...inputs, [name] : value});
+        setInputs({...inputs, [name] : value, eventType: customEvent});
     }
 
     function handleFileChange(e) {
@@ -50,8 +51,8 @@ export default function Account() {
         e.preventDefault();
         console.log(inputs);
         const formData = convertToFormData(inputs);
-        axios.post('https://birthday-site-server.onrender.com/account', formData, { 
-        // axios.post('http://localhost:3002/account', formData, { 
+        // axios.post('https://birthday-site-server.onrender.com/account', formData, { 
+        axios.post('http://localhost:3002/account', formData, { 
             headers: { 
                 accessToken: localStorage.getItem("accessToken")
             }
@@ -66,8 +67,8 @@ export default function Account() {
 
 
     useEffect(() => {
-        axios.get('https://birthday-site-server.onrender.com/account', {
-        // axios.get('http://localhost:3002/account', {
+        // axios.get('https://birthday-site-server.onrender.com/account', {
+        axios.get('http://localhost:3002/account', {
             headers : {
                 'Content-Type': 'application/json',
                 accessToken: localStorage.getItem("accessToken")
@@ -106,16 +107,19 @@ export default function Account() {
                             <input type="text" autoComplete="off" name="recipientName" value={inputs.recipientName} onChange={handleChange}/>
                         </label>
                         <label>Event Type
-                            <select name="eventType" onChange={handleChange}>
-                                <option value=''>None Selected</option>
-                                <option value='Birth Day'>Birth Day</option>
-                                <option value='Fathers Day'>Fathers Day</option>
-                                <option value='Mothers Day'>Mothers Day</option>
-                                <option value='GirlFriends Day'>GirlFriends Day</option>
-                                <option value='BoyFriends Day'>BoyFriends Day</option>
-                                <option value='Womens Day'>Womens Day</option>
-                                <option value='Mens Day'>Mens Day</option>
-                            </select>
+                            <div className="input-select">
+                                <input type="text" value={customEvent} onChange={(e) => setCustomEvent(e.target.value)}/>
+                                <select onChange={(e) => setCustomEvent(e.target.value)}>
+                                    <option value=''></option>
+                                    <option value='Birth Day'>Birth Day</option>
+                                    <option value='Fathers Day'>Fathers Day</option>
+                                    <option value='Mothers Day'>Mothers Day</option>
+                                    <option value='GirlFriends Day'>GirlFriends Day</option>
+                                    <option value='BoyFriends Day'>BoyFriends Day</option>
+                                    <option value='Womens Day'>Womens Day</option>
+                                    <option value='Mens Day'>Mens Day</option>
+                                </select>
+                            </div>
                         </label>
                         {
                             inputs.eventType === 'Birth Day' ? 
