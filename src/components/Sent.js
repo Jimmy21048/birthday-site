@@ -60,7 +60,7 @@ export default function Sent() {
     }
     if(loading) {
         return (
-            <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
+            <div className="loading"><i className="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
         )
     }
     return (
@@ -118,7 +118,7 @@ export default function Sent() {
                             return (
                                 <div key={events.r_id}>
                                     <p>{ event.r_name }</p> <a href={`https://events-receiver.vercel.app/${event.recipientId}a`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button>
-                                    {/* <p>{ event.r_name }</p> <a href={`http://localhost:3001/${event.recipientId}a`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye"></i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash"></i></button> */}
+                                    {/* <p>{ event.r_name }</p> <a href={`http://localhost:3001/${event.recipientId}a`} target='_blank' rel='noreferrer'><i class="fa-solid fa-eye">X</i></a> <button onClick={() => handleDelete(event.r_id)}><i class="fa-solid fa-trash">X</i></button> */}
                                 </div>
                             )
                         })

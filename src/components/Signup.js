@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import ShowPassword from './showpassword.m';
 
 export default function Signup() {
     const [ inputs, setInputs] = useState({username: '', password: ''});
@@ -9,9 +10,7 @@ export default function Signup() {
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
     const [currentImage, setCurrentImage] = useState(0);
-
-    let pwd = document.getElementById('password-input');
-    let pwdCheck = document.getElementById("pwd-check");
+    const [pwdType, setPwdType] = useState('password');
 
     function handleChange(e) {
         const name = e.target.name;
@@ -64,19 +63,9 @@ export default function Signup() {
         })
     }
 
-    function togglePassword() {
-        if(pwdCheck.checked === true) {
-            pwd.type = 'text';
-        } else {
-            pwd.type = 'password';
-        }
-    }
-
     function handleSignin() {
         setLogin(!login); 
         setInputs({username: '', password: ''}); 
-        pwdCheck.checked = false;
-        pwd.type = "password";
     }
 
     useEffect(() => {
@@ -126,19 +115,17 @@ export default function Signup() {
                         value={inputs.username} 
                         onChange={handleChange}/>
                          
+                        <div className="pwd-pwd">
                         <input 
                         id='password-input'
-                        type="password" 
+                        type={pwdType} 
                         name="password" 
                         placeholder='Password here...' 
                         autoComplete="off" 
                         value={inputs.password} 
                         onChange={handleChange} />
-
-                        <label>
-                            <input type='checkbox' id='pwd-check' onChange={togglePassword} />
-                            show password
-                        </label>
+                        <ShowPassword {...{setPwdType}} />
+                        </div>
 
                         <span>Don't have an account? <Link onClick={handleSignin}>signup</Link></span>
                     <button>log in</button>
@@ -160,19 +147,17 @@ export default function Signup() {
                     value={inputs.username} 
                     onChange={handleChange}/>
                     
+                    <div className='pwd-pwd'>
                     <input 
                     id='password-input'
-                    type="password" 
+                    type={pwdType} 
                     required name="password"
                     placeholder='Enter password' 
                     autoComplete="off" 
                     value={inputs.password} 
                     onChange={handleChange} />
-
-                    <label>
-                        <input type='checkbox' id='pwd-check' onChange={togglePassword} />
-                        show password
-                    </label>
+                    <ShowPassword {...{setPwdType}} />
+                    </div>
 
                     <span>Already have an account? <Link onClick={handleSignin}>login</Link></span>                
                 <button>sign up</button>

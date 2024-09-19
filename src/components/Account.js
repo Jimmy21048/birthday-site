@@ -90,14 +90,14 @@ export default function Account() {
 
 
     if(loading) {
-        return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
+        return <div className="loading"><i className="fa-solid fa-circle-notch fa-spin"></i><h3>Just a sec...</h3></div>
     }
     return (
         <div className="account-page">
             <header>
                 <h3>Hello {data.username}</h3>
                 
-                <Link className="account-icon" to='/sent' ><i class="fa-solid fa-user"></i></Link>
+                <Link className="account-icon" to='/sent' ><i className="fa-solid fa-user"></i></Link>
             </header>
             <div className="account-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">

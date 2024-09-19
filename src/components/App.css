@@ -130,6 +130,7 @@
     border-radius: 8px;
     background-color: #f7dbdb;
     padding-left:5px;
+    user-select: none;
 }
 .auth-form p {
     color:red;
@@ -162,7 +163,25 @@ input:focus {
 .auth-form #pwd-check {
     width:18px;
 }
-
+.pwd-pwd {
+    width:90%;
+    display: flex;
+    align-items:center;
+}
+.pwd-pwd input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.pwd-pwd .fa-solid {
+    width: 10%;
+    height:5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #f7dbdb;
+}
 /* account page */
 .account-page {
     height:100vh;
@@ -411,7 +430,7 @@ input:focus {
     width: 500px;
     max-width: 95vw;
     z-index: 999;
-    background-color: rgb(139, 144, 146);
+    background-color: rgb(187, 194, 197);
     height: 300px;
     border-radius: 20px;
     padding: 10px;
