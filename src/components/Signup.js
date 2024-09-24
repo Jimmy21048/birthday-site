@@ -74,7 +74,7 @@ export default function Signup() {
         <div className="signup-page">
             <div className="signup-page-left"></div>
             <div className="signup-page-right">
-                <img src='./images/logo2.png' alt='logo'/>
+                <img src='./images/logo3.png' alt='logo'/>
                 <h3>{ login ? 'LOG IN' : 'SIGN UP' }</h3>
                 {
                     login ? 
@@ -142,7 +142,10 @@ export default function Signup() {
                 <button>sign up</button>
                 </form>                
                 }
-
+                <div className='wisher'>
+                        <i>Help us wish your loved ones a happy day.</i>
+                        <i>Whatever it is, we are there for you</i>
+                </div>
             </div>
         </div>
     )
