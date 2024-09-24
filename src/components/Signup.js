@@ -9,7 +9,6 @@ export default function Signup() {
     const [login, setLogin] = useState(true);
     const history = useNavigate();
     const [loading, setLoading] = useState(null);
-    const [currentImage, setCurrentImage] = useState(0);
     const [pwdType, setPwdType] = useState('password');
 
     function handleChange(e) {
@@ -68,34 +67,14 @@ export default function Signup() {
         setInputs({username: '', password: ''}); 
     }
 
-    useEffect(() => {
-        const inter = setInterval(() => {
-            if(currentImage < 4) {
-                setCurrentImage(currentImage => currentImage + 1);
-            } else {
-                setCurrentImage(0);
-            }
-        }, 20000)
-        return () => clearInterval(inter);
-    }, [currentImage])
-
     if(loading) {
         return <div className="loading"><i class="fa-solid fa-circle-notch fa-spin"></i><h3>Just a minute... loading page</h3></div>
     }
     return (
         <div className="signup-page">
-            <div className="signup-page-left">
-                <h1>MY EVENTS</h1>
-                <img src={`../images/disp7.png`} alt='display' />
-                <h1>
-                    <p>BIRTHDAYS</p>
-                    <p>FATHERS DAY</p>
-                    <p>MOTHERS DAY</p>
-                    <p>ALL YOUR EVENTS</p>
-                    <p>BIRTHDAYS</p>
-                </h1>
-            </div>
+            <div className="signup-page-left"></div>
             <div className="signup-page-right">
+                <img src='./images/logo2.png' alt='logo'/>
                 <h3>{ login ? 'LOG IN' : 'SIGN UP' }</h3>
                 {
                     login ? 
